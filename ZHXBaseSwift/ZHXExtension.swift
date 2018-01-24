@@ -139,8 +139,14 @@ extension UIButton {
     }
     
     @discardableResult
-    func backgroundImage(_ image : UIImage?, _ state : UIControlState = .normal) -> Self {
-        self.setBackgroundImage(image, for: state)
+    func backgroundImage(_ backgroundImage : UIImage?, _ state : UIControlState = .normal) -> Self {
+        self.setBackgroundImage(backgroundImage, for: state)
+        return self
+    }
+    
+    @discardableResult
+    func image(_ image : UIImage?, _ state : UIControlState = .normal) -> Self {
+        self.setImage(image, for: state)
         return self
     }
 }
