@@ -12,7 +12,7 @@ import SwiftOnoneSupport
 
 extension UIWindow {
 
-    public convenience init(_ vc : UIViewController, _ backgroundColor : UIColor) {
+    convenience init(_ vc : UIViewController, _ backgroundColor : UIColor) {
         self.init(frame: UIScreen.main.bounds)
         self.backgroundColor = backgroundColor
         self.rootViewController = vc
@@ -103,6 +103,15 @@ extension UILabel {
         self.text = text
         self.font = font
         self.textColor = textColor
+        return self
+    }
+}
+
+extension UIImageView {
+    
+    @discardableResult
+    func image(_ image : UIImage?) -> Self {
+        self.image = image
         return self
     }
 }
