@@ -94,6 +94,13 @@ extension UIView {
         
         return self
     }
+    
+    @discardableResult
+    func corner(_ radius : CGFloat) -> Self {
+        layer.cornerRadius = radius
+        layer.masksToBounds = true
+        return self
+    }
 }
 
 extension UILabel {
