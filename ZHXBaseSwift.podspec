@@ -24,7 +24,9 @@ Pod::Spec.new do |s|
   #   * Try to keep it short, snappy and to the point.
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
-  s.description  = "No more description!"
+s.description  = <<-DESC
+                            No more description!
+                    DESC
 
   s.homepage     = "https://github.com/766770719/ZHXBaseSwift"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
@@ -132,5 +134,9 @@ Pod::Spec.new do |s|
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # s.dependency "JSONKit", "~> 1.4"
+
+  # ――― Swift Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  s.swift_version = "4.0.0"
 
 end
