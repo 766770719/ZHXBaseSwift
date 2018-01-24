@@ -115,3 +115,20 @@ extension UIImageView {
         return self
     }
 }
+
+extension UIButton {
+    
+    @discardableResult
+    func title(_ title : String?, _ titleColor : UIColor?, _ state : UIControlState = .normal) -> Self {
+        self.setTitle(title, for: state)
+        self.setTitleColor(titleColor, for: state)
+        return self
+    }
+    
+    @discardableResult
+    func font(_ font : UIFont) -> Self {
+        self.titleLabel?.font = font
+        return self
+    }
+}
+

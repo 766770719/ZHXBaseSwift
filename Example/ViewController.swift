@@ -26,6 +26,12 @@ class ViewController: UIViewController {
             make.top.equalTo(label.snp.bottom).offset(10)
             make.centerX.equalTo(self.view)
         }
+        
+        let btn = UIButton().title("UIButton", UIColor.black, .normal).font(UIFont.systemFont(ofSize: 14)).into(self.view)
+        btn.snp.makeConstraints { make in
+            make.top.equalTo(dashLineView.snp.bottom).offset(10)
+            make.centerX.equalTo(self.view)
+        }
     }
 }
 
