@@ -130,5 +130,11 @@ extension UIButton {
         self.titleLabel?.font = font
         return self
     }
+    
+    @discardableResult
+    func backgroundImage(_ image : UIImage?, _ state : UIControlState = .normal) -> Self {
+        self.setBackgroundImage(image, for: state)
+        return self
+    }
 }
 
