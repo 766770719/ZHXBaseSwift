@@ -12,7 +12,7 @@ import SwiftOnoneSupport
 
 extension UIWindow {
 
-    convenience init(_ vc : UIViewController, _ backgroundColor : UIColor) {
+    public convenience init(_ vc : UIViewController, _ backgroundColor : UIColor) {
         self.init(frame: UIScreen.main.bounds)
         self.backgroundColor = backgroundColor
         self.rootViewController = vc
@@ -23,7 +23,7 @@ extension UIWindow {
 extension UIColor {
     
     /// 颜色转为图片
-    func image() -> UIImage? {
+    public func image() -> UIImage? {
         let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
         UIGraphicsBeginImageContext(rect.size)
         let context = UIGraphicsGetCurrentContext()
@@ -39,28 +39,28 @@ extension UIView {
     
     //布局部分
     
-    func requireContentCompressionResistanceVertical() {
+    public func requireContentCompressionResistanceVertical() {
         self.setContentCompressionResistancePriority(.required, for: .vertical)
     }
     
-    func requireContentCompressionResistanceHorizontal() {
+    public func requireContentCompressionResistanceHorizontal() {
         self.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
     
-    func requireContentHuggingVertical() {
+    public func requireContentHuggingVertical() {
         self.setContentHuggingPriority(.required, for: .vertical)
     }
     
-    func requireContentHuggingHorizontal() {
+    public func requireContentHuggingHorizontal() {
         self.setContentHuggingPriority(.required, for: .horizontal)
     }
     
-    func requireContentWrapVertial() {
+    public func requireContentWrapVertial() {
         requireContentCompressionResistanceVertical()
         requireContentHuggingVertical()
     }
     
-    func requireContentWrapHorizontal() {
+    public func requireContentWrapHorizontal() {
         requireContentCompressionResistanceHorizontal()
         requireContentHuggingHorizontal()
     }
@@ -68,19 +68,19 @@ extension UIView {
     //其他
     
     @discardableResult
-    func into(_ parent : UIView) -> Self {
+    public func into(_ parent : UIView) -> Self {
         parent.addSubview(self)
         return self
     }
     
     @discardableResult
-    func backgroundColor(_ backgroundColor : UIColor?) -> Self {
+    public func backgroundColor(_ backgroundColor : UIColor?) -> Self {
         self.backgroundColor = backgroundColor
         return self
     }
     
     @discardableResult
-    func dashedLine(_ strokeColor : UIColor,_ fillColor : UIColor,_ viewSize : CGSize,_ lineWidth : CGFloat,_ strokeWidth : Float,_ fillWidth : Float) -> Self {
+    public func dashedLine(_ strokeColor : UIColor,_ fillColor : UIColor,_ viewSize : CGSize,_ lineWidth : CGFloat,_ strokeWidth : Float,_ fillWidth : Float) -> Self {
         let rect = CGRect(x: 0, y: 0, width: viewSize.width, height: viewSize.height)
         
         let layer = CAShapeLayer()
@@ -96,7 +96,7 @@ extension UIView {
     }
     
     @discardableResult
-    func corner(_ radius : CGFloat) -> Self {
+    public func corner(_ radius : CGFloat) -> Self {
         layer.cornerRadius = radius
         layer.masksToBounds = true
         return self
@@ -106,7 +106,7 @@ extension UIView {
 extension UILabel {
     
     @discardableResult
-    func text(_ text : String?, _ font : UIFont, _ textColor : UIColor) -> Self {
+    public func text(_ text : String?, _ font : UIFont, _ textColor : UIColor) -> Self {
         self.text = text
         self.font = font
         self.textColor = textColor
@@ -117,7 +117,7 @@ extension UILabel {
 extension UIImageView {
     
     @discardableResult
-    func image(_ image : UIImage?) -> Self {
+    public func image(_ image : UIImage?) -> Self {
         self.image = image
         return self
     }
@@ -126,26 +126,26 @@ extension UIImageView {
 extension UIButton {
     
     @discardableResult
-    func title(_ title : String?, _ titleColor : UIColor?, _ state : UIControlState = .normal) -> Self {
+    public func title(_ title : String?, _ titleColor : UIColor?, _ state : UIControlState = .normal) -> Self {
         self.setTitle(title, for: state)
         self.setTitleColor(titleColor, for: state)
         return self
     }
     
     @discardableResult
-    func font(_ font : UIFont) -> Self {
+    public func font(_ font : UIFont) -> Self {
         self.titleLabel?.font = font
         return self
     }
     
     @discardableResult
-    func backgroundImage(_ backgroundImage : UIImage?, _ state : UIControlState = .normal) -> Self {
+    public func backgroundImage(_ backgroundImage : UIImage?, _ state : UIControlState = .normal) -> Self {
         self.setBackgroundImage(backgroundImage, for: state)
         return self
     }
     
     @discardableResult
-    func image(_ image : UIImage?, _ state : UIControlState = .normal) -> Self {
+    public func image(_ image : UIImage?, _ state : UIControlState = .normal) -> Self {
         self.setImage(image, for: state)
         return self
     }
@@ -154,7 +154,7 @@ extension UIButton {
 extension UITextField {
     
     @discardableResult
-    func text(_ font : UIFont?,_ textColor : UIColor?,_ text : String? = nil) -> Self {
+    public func text(_ font : UIFont?,_ textColor : UIColor?,_ text : String? = nil) -> Self {
         self.font = font
         self.textColor = textColor
         self.text = text
@@ -163,7 +163,7 @@ extension UITextField {
     }
     
     @discardableResult
-    func placeHolder(_ placeHolder : String,_ placeHolderColor : UIColor) -> Self {
+    public func placeHolder(_ placeHolder : String,_ placeHolderColor : UIColor) -> Self {
         self.attributedPlaceholder = NSAttributedString(string: placeHolder, attributes: [.foregroundColor : placeHolderColor])
         return self
     }
@@ -172,7 +172,7 @@ extension UITextField {
 extension UITextView {
     
     @discardableResult
-    func text(_ font : UIFont?,_ textColor : UIColor?,_ text : String? = nil) -> Self {
+    public func text(_ font : UIFont?,_ textColor : UIColor?,_ text : String? = nil) -> Self {
         self.font = font
         self.textColor = textColor
         self.text = text
@@ -185,7 +185,7 @@ extension UITextView {
 
 extension UITableView {
     
-    convenience init(_ delegate : UITableViewDelegate?,_ dataSource : UITableViewDataSource?,_ style : UITableViewStyle = .grouped) {
+    public convenience init(_ delegate : UITableViewDelegate?,_ dataSource : UITableViewDataSource?,_ style : UITableViewStyle = .grouped) {
         self.init(frame: CGRect.null, style: style)
         self.estimatedRowHeight = 0
         self.estimatedSectionFooterHeight = 0
@@ -195,23 +195,23 @@ extension UITableView {
     }
     
     @discardableResult
-    func register(_ cellClass : AnyClass) -> Self {
+    public func register(_ cellClass : AnyClass) -> Self {
         self.register(cellClass, forCellReuseIdentifier: String(describing: cellClass))
         return self
     }
     
-    func dequeueReusableCell<T : UITableViewCell>(_ cellClass : T.Type) -> T? {
+    public func dequeueReusableCell<T : UITableViewCell>(_ cellClass : T.Type) -> T? {
         return self.dequeueReusableCell(withIdentifier: String(describing: cellClass)) as? T
     }
 }
 
 extension NSObject {
     
-    @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    @objc public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    @objc public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
     }
 }
@@ -220,9 +220,9 @@ extension NSObject {
 
 extension UICollectionView {
     
-    var flowLayout : UICollectionViewFlowLayout? { return self.collectionViewLayout as? UICollectionViewFlowLayout }
+    public var flowLayout : UICollectionViewFlowLayout? { return self.collectionViewLayout as? UICollectionViewFlowLayout }
     
-    convenience init(_ delegate : UICollectionViewDelegate?,_ dataSource : UICollectionViewDataSource?) {
+    public convenience init(_ delegate : UICollectionViewDelegate?,_ dataSource : UICollectionViewDataSource?) {
         self.init(frame: CGRect.null, collectionViewLayout: UICollectionViewFlowLayout())
         self.backgroundColor = UIColor.clear
         self.delegate = delegate
@@ -230,7 +230,7 @@ extension UICollectionView {
     }
     
     @discardableResult
-    func itemSize(_ itemSize : CGSize,_ itemSpacing : CGFloat = 0,_ lineSpacing : CGFloat = 0) -> Self {
+    public func itemSize(_ itemSize : CGSize,_ itemSpacing : CGFloat = 0,_ lineSpacing : CGFloat = 0) -> Self {
         flowLayout?.itemSize = itemSize
         flowLayout?.minimumInteritemSpacing = itemSpacing
         flowLayout?.minimumLineSpacing = lineSpacing
@@ -238,18 +238,18 @@ extension UICollectionView {
     }
     
     @discardableResult
-    func sectionInset(_ sectionInset : UIEdgeInsets) -> Self {
+    public func sectionInset(_ sectionInset : UIEdgeInsets) -> Self {
         flowLayout?.sectionInset = sectionInset
         return self
     }
     
     @discardableResult
-    func register(_ cellClass : AnyClass) -> Self {
+    public func register(_ cellClass : AnyClass) -> Self {
         self.register(cellClass, forCellWithReuseIdentifier: String(describing: cellClass))
         return self
     }
     
-    func dequeueReusableCell<T : UICollectionViewCell>(_ cellClass : T.Type,_ indexPath : IndexPath) -> T? {
+    public func dequeueReusableCell<T : UICollectionViewCell>(_ cellClass : T.Type,_ indexPath : IndexPath) -> T? {
         return self.dequeueReusableCell(withReuseIdentifier: String(describing: cellClass), for: indexPath) as? T
     }
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7A19286B2019E4230059C6C5 /* ZHXConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A892E6A2018872C00F8661B /* ZHXConstants.swift */; };
+		7A19286C2019E4230059C6C5 /* ZHXExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A892E6720187E8500F8661B /* ZHXExtension.swift */; };
 		7A892E4B2018666800F8661B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A892E4A2018666800F8661B /* AppDelegate.swift */; };
 		7A892E4D2018666800F8661B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A892E4C2018666800F8661B /* ViewController.swift */; };
 		7A892E522018666800F8661B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7A892E512018666800F8661B /* Assets.xcassets */; };
@@ -15,8 +17,6 @@
 		7A892E62201869BC00F8661B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7A892E61201869BC00F8661B /* README.md */; };
 		7A892E6420186AE800F8661B /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 7A892E6320186AE700F8661B /* Podfile */; };
 		7A892E6620186B8D00F8661B /* ZHXBaseSwift.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7A892E6520186B8D00F8661B /* ZHXBaseSwift.podspec */; };
-		7A892E69201885EC00F8661B /* ZHXExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A892E6720187E8500F8661B /* ZHXExtension.swift */; };
-		7A892E6B2018872C00F8661B /* ZHXConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A892E6A2018872C00F8661B /* ZHXConstants.swift */; };
 		AC576AA37C8ED26210CABCF4 /* Pods_ZHXBaseSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 756E4BC915B01D2B960F873F /* Pods_ZHXBaseSwift.framework */; };
 /* End PBXBuildFile section */
 
@@ -243,9 +243,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A892E6B2018872C00F8661B /* ZHXConstants.swift in Sources */,
-				7A892E69201885EC00F8661B /* ZHXExtension.swift in Sources */,
+				7A19286C2019E4230059C6C5 /* ZHXExtension.swift in Sources */,
 				7A892E4D2018666800F8661B /* ViewController.swift in Sources */,
+				7A19286B2019E4230059C6C5 /* ZHXConstants.swift in Sources */,
 				7A892E4B2018666800F8661B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

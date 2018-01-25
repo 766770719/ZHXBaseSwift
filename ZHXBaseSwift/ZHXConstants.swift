@@ -11,9 +11,9 @@ import UIKit
 // MARK: - 数值
 
 /// 状态栏高度
-let HeightStatusBar = UIApplication.shared.statusBarFrame.height
+public let HeightStatusBar = UIApplication.shared.statusBarFrame.height
 /// 屏幕高度
-let HeightScreen = UIScreen.main.bounds.height
+public let HeightScreen = UIScreen.main.bounds.height
 
 /// 屏幕宽度
-let WidthScreen = UIScreen.main.bounds.width
+public let WidthScreen = UIScreen.main.bounds.width
