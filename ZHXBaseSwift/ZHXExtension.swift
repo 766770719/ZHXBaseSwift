@@ -151,3 +151,38 @@ extension UIButton {
     }
 }
 
+// MARK: - UITableView
+
+extension UITableView {
+    
+    convenience init(_ delegate : UITableViewDelegate?,_ dataSource : UITableViewDataSource?,_ style : UITableViewStyle = .grouped) {
+        self.init(frame: CGRect.null, style: style)
+        self.estimatedRowHeight = 0
+        self.estimatedSectionFooterHeight = 0
+        self.estimatedSectionHeaderHeight = 0
+        self.delegate = delegate
+        self.dataSource = dataSource
+    }
+    
+    @discardableResult
+    func register(_ cellClass : AnyClass) -> Self {
+        self.register(cellClass, forCellReuseIdentifier: String(describing: cellClass))
+        return self
+    }
+    
+    func dequeueReusableCell(_ cellClass : AnyClass) -> UITableViewCell? {
+        return self.dequeueReusableCell(withIdentifier: String(describing: cellClass))
+    }
+}
+
+extension NSObject {
+    
+    @objc func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.0001
+    }
+    
+    @objc func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.0001
+    }
+}
+

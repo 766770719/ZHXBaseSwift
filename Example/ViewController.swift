@@ -8,30 +8,47 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let label = UILabel().text("UILabel", UIFont.systemFont(ofSize: 14), UIColor.black).into(self.view)
-        label.snp.makeConstraints { make in
-            make.left.top.right.equalTo(self.view).inset(UIEdgeInsets(top: 40, left: 14, bottom: 0, right: 0))
+        let tb = UITableView(self, self).into(self.view)
+        tb.rowHeight = MyCell.CellHeight
+        tb.register(MyCell.self)
+        tb.snp.makeConstraints { make in
+            make.edges.equalTo(self.view)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(MyCell.self)
+        return cell!
+    }
+}
+
+class MyCell: UITableViewCell {
+    
+    static var CellHeight: CGFloat { return 40 }
+    
+    var lb : UILabel?
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        let dashLineViewSize = CGSize(width: 100, height: 100)
-        let dashLineView = UIView().into(self.view)
-        dashLineView.dashedLine(UIColor.blue, UIColor.white, dashLineViewSize, 1, 5, 10)
-        dashLineView.snp.makeConstraints { make in
-            make.size.equalTo(dashLineViewSize)
-            make.top.equalTo(label.snp.bottom).offset(10)
-            make.centerX.equalTo(self.view)
-        }
-        
-        let btn = UIButton().title("UIButton", UIColor.black, .normal).font(UIFont.systemFont(ofSize: 14)).backgroundImage(UIColor.orange.image()).image(UIColor.black.image()).corner(5).into(self.view)
-        btn.snp.makeConstraints { make in
-            make.top.equalTo(dashLineView.snp.bottom).offset(10)
-            make.centerX.equalTo(self.view)
-        }
+        lb = UILabel().text("文本", UIFont.systemFont(ofSize: 14), UIColor.orange).into(self.contentView)
+        lb?.snp.makeConstraints({ make in
+            make.left.equalTo(self.contentView).offset(14)
+            make.centerY.equalTo(self.contentView)
+        })
     }
 }
 
