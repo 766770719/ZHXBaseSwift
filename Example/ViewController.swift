@@ -8,32 +8,34 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let tb = UITableView(self, self).into(self.view)
-        tb.register(MyCell.self).rowHeight = MyCell.height
-        tb.snp.makeConstraints { make in
+        
+        
+        let cv = UICollectionView(self, self).itemSize(CGSize(width: WidthScreen/2-10-10, height: 90),20,20).sectionInset(UIEdgeInsetsMake(20, 10, 20, 10)).into(self.view)
+        cv.flowLayout?.scrollDirection = .horizontal
+        cv.register(MyCell.self)
+        cv.snp.makeConstraints { make in
             make.edges.equalTo(self.view)
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 20
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(MyCell.self)
-        cell?.lb?.text = "什么东西"
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(MyCell.self, indexPath)
+        cell?.lb?.text = "collectionView"
         return cell!
     }
+    
 }
 
-class MyCell: UITableViewCell {
-    
-    static var height: CGFloat { return 40 }
+class MyCell: UICollectionViewCell {
     
     var lb : UILabel?
     
@@ -41,13 +43,12 @@ class MyCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor.blue
         lb = UILabel().text("文本", UIFont.systemFont(ofSize: 14), UIColor.orange).into(self.contentView)
         lb?.snp.makeConstraints({ make in
-            make.left.equalTo(self.contentView).offset(14)
-            make.centerY.equalTo(self.contentView)
+            make.center.equalTo(self.contentView)
         })
     }
 }

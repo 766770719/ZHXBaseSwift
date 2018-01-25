@@ -186,3 +186,41 @@ extension NSObject {
     }
 }
 
+// MARK: - UICollectionView
+
+extension UICollectionView {
+    
+    var flowLayout : UICollectionViewFlowLayout? { return self.collectionViewLayout as? UICollectionViewFlowLayout }
+    
+    convenience init(_ delegate : UICollectionViewDelegate?,_ dataSource : UICollectionViewDataSource?) {
+        self.init(frame: CGRect.null, collectionViewLayout: UICollectionViewFlowLayout())
+        self.backgroundColor = UIColor.clear
+        self.delegate = delegate
+        self.dataSource = dataSource
+    }
+    
+    @discardableResult
+    func itemSize(_ itemSize : CGSize,_ itemSpacing : CGFloat = 0,_ lineSpacing : CGFloat = 0) -> Self {
+        flowLayout?.itemSize = itemSize
+        flowLayout?.minimumInteritemSpacing = itemSpacing
+        flowLayout?.minimumLineSpacing = lineSpacing
+        return self
+    }
+    
+    @discardableResult
+    func sectionInset(_ sectionInset : UIEdgeInsets) -> Self {
+        flowLayout?.sectionInset = sectionInset
+        return self
+    }
+    
+    @discardableResult
+    func register(_ cellClass : AnyClass) -> Self {
+        self.register(cellClass, forCellWithReuseIdentifier: String(describing: cellClass))
+        return self
+    }
+    
+    func dequeueReusableCell<T : UICollectionViewCell>(_ cellClass : T.Type,_ indexPath : IndexPath) -> T? {
+        return self.dequeueReusableCell(withReuseIdentifier: String(describing: cellClass), for: indexPath) as? T
+    }
+}
+

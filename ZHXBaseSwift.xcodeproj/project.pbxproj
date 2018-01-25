@@ -85,8 +85,8 @@
 		7A892E492018666800F8661B /* ZHXBaseSwift */ = {
 			isa = PBXGroup;
 			children = (
-				7A892E6720187E8500F8661B /* ZHXExtension.swift */,
 				7A892E6A2018872C00F8661B /* ZHXConstants.swift */,
+				7A892E6720187E8500F8661B /* ZHXExtension.swift */,
 			);
 			path = ZHXBaseSwift;
 			sourceTree = "<group>";
