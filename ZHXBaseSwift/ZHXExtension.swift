@@ -151,6 +151,24 @@ extension UIButton {
     }
 }
 
+extension UITextField {
+    
+    @discardableResult
+    func text(_ font : UIFont?,_ textColor : UIColor?,_ text : String? = nil) -> Self {
+        self.text = text
+        self.font = font
+        self.textColor = textColor
+        self.clipsToBounds = true
+        return self
+    }
+    
+    @discardableResult
+    func placeHolder(_ placeHolder : String,_ placeHolderColor : UIColor) -> Self {
+        self.attributedPlaceholder = NSAttributedString(string: placeHolder, attributes: [.foregroundColor : placeHolderColor])
+        return self
+    }
+}
+
 // MARK: - UITableView
 
 extension UITableView {

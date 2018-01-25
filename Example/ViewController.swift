@@ -13,13 +13,10 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        
-        let cv = UICollectionView(self, self).itemSize(CGSize(width: WidthScreen/2-10-10, height: 90),20,20).sectionInset(UIEdgeInsetsMake(20, 10, 20, 10)).into(self.view)
-        cv.flowLayout?.scrollDirection = .horizontal
-        cv.register(MyCell.self)
-        cv.snp.makeConstraints { make in
-            make.edges.equalTo(self.view)
+        let field = UITextField().text(UIFont.systemFont(ofSize: 15), UIColor.blue).placeHolder("placeho", UIColor.black).backgroundColor(UIColor.gray).into(self.view)
+        field.snp.makeConstraints { make in
+            make.height.equalTo(40)
+            make.top.left.right.equalTo(self.view).inset(UIEdgeInsetsMake(40, 10, 0, 10))
         }
     }
     
