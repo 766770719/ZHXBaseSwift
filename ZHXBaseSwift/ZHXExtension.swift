@@ -170,8 +170,8 @@ extension UITableView {
         return self
     }
     
-    func dequeueReusableCell(_ cellClass : AnyClass) -> UITableViewCell? {
-        return self.dequeueReusableCell(withIdentifier: String(describing: cellClass))
+    func dequeueReusableCell<T : UITableViewCell>(_ cellClass : T.Type) -> T? {
+        return self.dequeueReusableCell(withIdentifier: String(describing: cellClass)) as? T
     }
 }
 

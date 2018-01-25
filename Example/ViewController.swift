@@ -12,10 +12,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let tb = UITableView(self, self).into(self.view)
-        tb.rowHeight = MyCell.CellHeight
-        tb.register(MyCell.self)
+        tb.register(MyCell.self).rowHeight = MyCell.height
         tb.snp.makeConstraints { make in
             make.edges.equalTo(self.view)
         }
@@ -27,13 +26,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(MyCell.self)
+        cell?.lb?.text = "什么东西"
         return cell!
     }
 }
 
 class MyCell: UITableViewCell {
     
-    static var CellHeight: CGFloat { return 40 }
+    static var height: CGFloat { return 40 }
     
     var lb : UILabel?
     
