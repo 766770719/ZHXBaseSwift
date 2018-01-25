@@ -13,8 +13,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let field = UITextField().text(UIFont.systemFont(ofSize: 15), UIColor.blue).placeHolder("placeho", UIColor.black).backgroundColor(UIColor.gray).into(self.view)
-        field.snp.makeConstraints { make in
+        let tv = UITextView().text(UIFont.systemFont(ofSize: 15), UIColor.blue,"会计师").backgroundColor(UIColor.gray).into(self.view)
+        tv.snp.makeConstraints { make in
             make.height.equalTo(40)
             make.top.left.right.equalTo(self.view).inset(UIEdgeInsetsMake(40, 10, 0, 10))
         }

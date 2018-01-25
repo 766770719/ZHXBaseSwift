@@ -155,9 +155,9 @@ extension UITextField {
     
     @discardableResult
     func text(_ font : UIFont?,_ textColor : UIColor?,_ text : String? = nil) -> Self {
-        self.text = text
         self.font = font
         self.textColor = textColor
+        self.text = text
         self.clipsToBounds = true
         return self
     }
@@ -165,6 +165,18 @@ extension UITextField {
     @discardableResult
     func placeHolder(_ placeHolder : String,_ placeHolderColor : UIColor) -> Self {
         self.attributedPlaceholder = NSAttributedString(string: placeHolder, attributes: [.foregroundColor : placeHolderColor])
+        return self
+    }
+}
+
+extension UITextView {
+    
+    @discardableResult
+    func text(_ font : UIFont?,_ textColor : UIColor?,_ text : String? = nil) -> Self {
+        self.font = font
+        self.textColor = textColor
+        self.text = text
+        self.textContainerInset = UIEdgeInsets.zero
         return self
     }
 }
