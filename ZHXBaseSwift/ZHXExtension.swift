@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import DynamicColor
 import SwiftOnoneSupport
 
 extension UIWindow {
@@ -251,6 +252,129 @@ extension UICollectionView {
     
     public func dequeueReusableCell<T : UICollectionViewCell>(_ cellClass : T.Type,_ indexPath : IndexPath) -> T? {
         return self.dequeueReusableCell(withReuseIdentifier: String(describing: cellClass), for: indexPath) as? T
+    }
+}
+
+// MARK: - UIView:Status
+
+/// View的状态枚举
+public enum ViewStatus {
+    case progress
+    case fail
+    case empty
+    case success
+}
+
+extension UIView {
+    
+    //Keys
+    
+    private static var KeyVgStatusProgress : Void?
+    private static var KeyVgStatusFail : Void?
+    private static var KeyVgStatusEmpty : Void?
+    
+    //Properties
+    
+    public var vgStatusProgress: UIView? {
+        set {
+            objc_setAssociatedObject(self, &UIView.KeyVgStatusProgress, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get {
+            return objc_getAssociatedObject(self, &UIView.KeyVgStatusProgress) as? UIView
+        }
+    }
+    
+    public var vgStatusFail: UIView? {
+        set {
+            objc_setAssociatedObject(self, &UIView.KeyVgStatusFail, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get {
+            return objc_getAssociatedObject(self, &UIView.KeyVgStatusFail) as? UIView
+        }
+    }
+    
+    public var vgStatusEmpty: UIView? {
+        set {
+            objc_setAssociatedObject(self, &UIView.KeyVgStatusEmpty, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get {
+            return objc_getAssociatedObject(self, &UIView.KeyVgStatusEmpty) as? UIView
+        }
+    }
+    
+    /// 显示View的状态
+    public func showStatus(_ status : ViewStatus,_ text : String? = nil,_ target : Any? = nil,_ action : Selector? = nil) {
+        showStatusSuccess()
+        if status == .progress {
+            showStatusProgress()
+        }else if status == .fail {
+            showStatusFail(text, target!, action!)
+        }else if status == .empty {
+            showStatusEmpty(text)
+        }
+    }
+    
+    /// 进度样式:自定义需要重写,不可直接调用
+    public func showStatusProgress() {
+        vgStatusProgress = UIView().into(self)
+        vgStatusProgress?.snp.makeConstraints({ make in
+            make.center.equalTo(self)
+        })
+        
+        let aiv = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge).into(vgStatusProgress!)
+        aiv.color = UIColor.gray
+        aiv.startAnimating()
+        aiv.snp.makeConstraints { make in
+            make.edges.equalTo(vgStatusProgress!)
+        }
+    }
+    
+    /// 失败样式:自定义需要重写,不可直接调用
+    public func showStatusFail(_ text : String?,_ target : Any,_ action : Selector) {
+        vgStatusFail = UIView().into(self)
+        vgStatusFail?.snp.makeConstraints({ make in
+            make.left.right.equalTo(self).inset(UIEdgeInsetsMake(0, 36, 0, 36))
+            make.center.equalTo(self)
+        })
+        
+        let lb = UILabel().text(text, UIFont.systemFont(ofSize: 14), UIColor(hexString: "#999999")).into(vgStatusFail!)
+        lb.numberOfLines = 0
+        lb.textAlignment = .center
+        lb.snp.makeConstraints { make in
+            make.top.left.right.equalTo(vgStatusFail!)
+        }
+        
+        let btn = UIButton().title("重新加载", UIColor.white).font(UIFont.systemFont(ofSize: 15))
+            .backgroundImage(UIColor(hexString: "#05931e").image()).corner(5).into(vgStatusFail!)
+        btn.addTarget(target, action: action, for: .touchUpInside)
+        btn.snp.makeConstraints { make in
+            make.size.equalTo(CGSize(width: 112, height: 32))
+            make.top.equalTo(lb.snp.bottom).offset(6);
+            make.bottom.centerX.equalTo(vgStatusFail!);
+        }
+    }
+    
+    /// 空样式:自定义需要重写,不可直接调用
+    public func showStatusEmpty(_ text : String?) {
+        vgStatusEmpty = UIView().into(self)
+        vgStatusEmpty?.snp.makeConstraints({ make in
+            make.left.right.equalTo(self).inset(UIEdgeInsetsMake(0, 36, 0, 36))
+            make.center.equalTo(self)
+        })
+        
+        let lb = UILabel().text(text, UIFont.systemFont(ofSize: 14), UIColor(hexString: "#999999")).into(vgStatusEmpty!)
+        lb.numberOfLines = 0
+        lb.textAlignment = .center
+        lb.snp.makeConstraints { make in
+            make.edges.equalTo(vgStatusEmpty!);
+        }
+    }
+    
+    /// 成功样式,默认移除所有状态相关控件:自定义需要重写,不可直接调用
+    public func showStatusSuccess() {
+        vgStatusProgress?.removeFromSuperview()
+        vgStatusFail?.removeFromSuperview()
+        vgStatusEmpty?.removeFromSuperview()
     }
 }
 

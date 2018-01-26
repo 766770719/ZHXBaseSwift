@@ -18,6 +18,11 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
             make.height.equalTo(40)
             make.top.left.right.equalTo(self.view).inset(UIEdgeInsetsMake(40, 10, 0, 10))
         }
+        
+        self.view.showStatus(.progress)
+        self.view.showStatus(.fail, "失败失败", self, #selector(reloadData))
+        self.view.showStatus(.empty, "空")
+        self.view.showStatus(.success)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -30,6 +35,9 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         return cell!
     }
     
+    @objc func reloadData() {
+        print("加载")
+    }
 }
 
 class MyCell: UICollectionViewCell {

@@ -1,12 +1,15 @@
 PODS:
+  - DynamicColor (4.0.2)
   - SnapKit (4.0.0)
 
 DEPENDENCIES:
+  - DynamicColor (~> 4.0.2)
   - SnapKit (~> 4.0.0)
 
 SPEC CHECKSUMS:
+  DynamicColor: c7adcfe871781a2b39877a5774e452ba51b79eb3
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
 
-PODFILE CHECKSUM: efb7b3f98b8f7e7d179bd2d8fd591a4b35cdfa3a
+PODFILE CHECKSUM: 3f3da36d9cfb960963aaa28bc60bd482bd9c5281
 
 COCOAPODS: 1.4.0
