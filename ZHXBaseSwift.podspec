@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "ZHXBaseSwift"
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   s.summary      = "Swift Base Project."
   s.homepage     = "https://github.com/766770719/ZHXBaseSwift"
   s.license      = "MIT"
@@ -12,4 +12,5 @@ Pod::Spec.new do |s|
   s.swift_version = "4.0.0"
 
   s.dependency 'SnapKit', '~> 4.0.0'
+  s.dependency 'DynamicColor', '~> 4.0.2'
 end
