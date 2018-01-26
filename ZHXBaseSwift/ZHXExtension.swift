@@ -265,7 +265,29 @@ public enum ViewStatus {
     case success
 }
 
+/// View的状态配置信息
+public struct ViewStatusConfig {
+    //Progress
+    public static var progressStyle = UIActivityIndicatorViewStyle.whiteLarge
+    public static var progressColor = UIColor.gray
+    //Fail
+    public static var failReasonFont = UIFont.systemFont(ofSize: 14)
+    public static var failReasonTextColor = UIColor(hexString: "#999999")
+    public static var failButtonText = "重新加载"
+    public static var failButtonFont = UIFont.systemFont(ofSize: 15)
+    public static var failButtonTextColor = UIColor.white
+    public static var failButtonBackgroundImage = UIColor(hexString: "#05931e").image()
+    public static var failButtonCorner : CGFloat = 5
+    public static var failButtonSize = CGSize(width: 112, height: 32)
+    //Empty
+    public static var emptyFont = UIFont.systemFont(ofSize: 14)
+    public static var emptyTextColor = UIColor(hexString: "#999999")
+}
+
 extension UIView {
+    
+    /// 配置简写
+    private typealias Config = ViewStatusConfig
     
     //Keys
     
@@ -275,7 +297,7 @@ extension UIView {
     
     //Properties
     
-    public var vgStatusProgress: UIView? {
+    private var vgStatusProgress: UIView? {
         set {
             objc_setAssociatedObject(self, &UIView.KeyVgStatusProgress, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
@@ -284,7 +306,7 @@ extension UIView {
         }
     }
     
-    public var vgStatusFail: UIView? {
+    private var vgStatusFail: UIView? {
         set {
             objc_setAssociatedObject(self, &UIView.KeyVgStatusFail, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
@@ -293,7 +315,7 @@ extension UIView {
         }
     }
     
-    public var vgStatusEmpty: UIView? {
+    private var vgStatusEmpty: UIView? {
         set {
             objc_setAssociatedObject(self, &UIView.KeyVgStatusEmpty, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
@@ -314,55 +336,52 @@ extension UIView {
         }
     }
     
-    /// 进度样式:自定义需要重写,不可直接调用
-    public func showStatusProgress() {
+    private func showStatusProgress() {
         vgStatusProgress = UIView().into(self)
         vgStatusProgress?.snp.makeConstraints({ make in
             make.center.equalTo(self)
         })
         
-        let aiv = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge).into(vgStatusProgress!)
-        aiv.color = UIColor.gray
+        let aiv = UIActivityIndicatorView(activityIndicatorStyle: Config.progressStyle).into(vgStatusProgress!)
+        aiv.color = Config.progressColor
         aiv.startAnimating()
         aiv.snp.makeConstraints { make in
             make.edges.equalTo(vgStatusProgress!)
         }
     }
     
-    /// 失败样式:自定义需要重写,不可直接调用
-    public func showStatusFail(_ text : String?,_ target : Any,_ action : Selector) {
+    private func showStatusFail(_ text : String?,_ target : Any,_ action : Selector) {
         vgStatusFail = UIView().into(self)
         vgStatusFail?.snp.makeConstraints({ make in
             make.left.right.equalTo(self).inset(UIEdgeInsetsMake(0, 36, 0, 36))
             make.center.equalTo(self)
         })
         
-        let lb = UILabel().text(text, UIFont.systemFont(ofSize: 14), UIColor(hexString: "#999999")).into(vgStatusFail!)
+        let lb = UILabel().text(text, Config.failReasonFont, Config.failReasonTextColor).into(vgStatusFail!)
         lb.numberOfLines = 0
         lb.textAlignment = .center
         lb.snp.makeConstraints { make in
             make.top.left.right.equalTo(vgStatusFail!)
         }
         
-        let btn = UIButton().title("重新加载", UIColor.white).font(UIFont.systemFont(ofSize: 15))
-            .backgroundImage(UIColor(hexString: "#05931e").image()).corner(5).into(vgStatusFail!)
+        let btn = UIButton().title(Config.failButtonText, Config.failButtonTextColor).font(Config.failButtonFont)
+            .backgroundImage(Config.failButtonBackgroundImage).corner(Config.failButtonCorner).into(vgStatusFail!)
         btn.addTarget(target, action: action, for: .touchUpInside)
         btn.snp.makeConstraints { make in
-            make.size.equalTo(CGSize(width: 112, height: 32))
+            make.size.equalTo(Config.failButtonSize)
             make.top.equalTo(lb.snp.bottom).offset(6);
             make.bottom.centerX.equalTo(vgStatusFail!);
         }
     }
     
-    /// 空样式:自定义需要重写,不可直接调用
-    public func showStatusEmpty(_ text : String?) {
+    private func showStatusEmpty(_ text : String?) {
         vgStatusEmpty = UIView().into(self)
         vgStatusEmpty?.snp.makeConstraints({ make in
             make.left.right.equalTo(self).inset(UIEdgeInsetsMake(0, 36, 0, 36))
             make.center.equalTo(self)
         })
         
-        let lb = UILabel().text(text, UIFont.systemFont(ofSize: 14), UIColor(hexString: "#999999")).into(vgStatusEmpty!)
+        let lb = UILabel().text(text, Config.emptyFont, Config.emptyTextColor).into(vgStatusEmpty!)
         lb.numberOfLines = 0
         lb.textAlignment = .center
         lb.snp.makeConstraints { make in
@@ -370,8 +389,7 @@ extension UIView {
         }
     }
     
-    /// 成功样式,默认移除所有状态相关控件:自定义需要重写,不可直接调用
-    public func showStatusSuccess() {
+    private func showStatusSuccess() {
         vgStatusProgress?.removeFromSuperview()
         vgStatusFail?.removeFromSuperview()
         vgStatusEmpty?.removeFromSuperview()
